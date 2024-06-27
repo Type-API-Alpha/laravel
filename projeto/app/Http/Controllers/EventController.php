@@ -13,7 +13,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::paginate(5);
+        return view('/home', compact('events'));
     }
 
     /**
@@ -47,7 +48,7 @@ class EventController extends Controller
      */
     public function show()
     {
-        //
+        return view('event_details', compact('event'));
     }
 
     public function showEvents() {

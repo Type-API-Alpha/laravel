@@ -33,3 +33,5 @@ Route::post('/create_event', [EventController::class, 'store'])->name('create.ev
 
 Route::view('/login', 'login') ->name('login');
 Route::post('/auth', [ LoginController::class, 'auth' ]) ->name('login.auth');
+Route::get('/home', [ EventController::class, 'index' ]) ->name('event.index');
+Route::get('/event/{event}', [ EventController::class, 'show' ]) ->name('event.detail');
