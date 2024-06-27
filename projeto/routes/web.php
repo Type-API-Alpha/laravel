@@ -10,10 +10,10 @@ Route::get('/', function () {
 });
 
 //Cesar Routes
-Route::get('/register', [UserController::class, 'index']);
-Route::post('/register', [UserController::class, 'create']);
-
-
+Route::get('/register', [UserController::class, 'index'])->name('register');
+Route::post('/register', [UserController::class, 'create'])->name('create.user');
+Route::get('/event_user', [EventController::class, 'showEvents'])->name('user.events');
+Route::get('/create_event', [EventController::class, 'create'])->name('create.event');
 
 
 

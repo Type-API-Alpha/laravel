@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class EventController extends Controller
 {
@@ -35,9 +36,20 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show()
     {
         return view('event_details', compact('event'));
+    }
+
+    public function showEvents() {
+        
+        $sessionId = session('loginId');
+        $myEvents = Event::where('user_id', $sessionId)->get();
+
+        $user = User::with('events')->findOrFail($sessionId);
+        $eventsIn = $user->events;
+
+        return view('event_user', compact('myEvents', 'eventsIn'));
     }
 
     /**

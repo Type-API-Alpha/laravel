@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +24,8 @@ class EventFactory extends Factory
             'end_date' => $this->faker->dateTimeThisDecade,
             'max_participants' => $this->faker->randomNumber(2),
             'entry_price' => $this->faker->randomFloat(2, 1, 1000),
-            'event_image' => $this->faker->imageUrl(400, 400)
+            'event_image' => $this->faker->imageUrl(400, 400),
+            'user_id' => User::pluck('id')->random(),
         ];
     }
 }
