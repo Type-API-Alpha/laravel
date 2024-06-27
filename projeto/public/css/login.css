@@ -1,0 +1,33 @@
+#container-input-email, 
+#container-input-pass {
+    position: relative;
+
+    & input {
+        padding-left: 2rem;
+    }
+}
+
+#container-input-email::before, #container-input-pass::before {
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: 0;
+    width: 2rem;
+    height: 2.5rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
+}
+
+#container-input-email::before {
+    background-image: url('../assets/icons/email-icon.svg');
+    left: 0.1rem;
+}
+
+#container-input-pass::before {
+    background-image: url('../assets/icons/pass.svg');
+}
+
+.text-danger {
+    position: absolute;
+}

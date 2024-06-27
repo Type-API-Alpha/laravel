@@ -19,7 +19,7 @@ class LoginController extends Controller
         ], [
             'email.email' => 'Email inválido',
             'email.required' => 'Email é obrigatório.',
-            'password.required' => 'Password é obrigatório.',
+            'password.required' => 'Senha é obrigatório.',
             'password.min' => 'Senha tem que possuir no mínimo 8 caracteres.',
         ]);
 
@@ -27,6 +27,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
             $request->session()->put('loginId', $user->id);
+            session('loginId');
 
             return redirect('/home');
         } else {
