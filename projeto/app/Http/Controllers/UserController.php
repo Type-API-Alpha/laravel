@@ -26,7 +26,20 @@ class UserController extends Controller
         $user->password = $request->password;
         $user->save();
 
-        return response()->json(['message' => 'Usuário criado com sucesso!', 'user' => $user], 201);
+        $credentials = $request->validate([
+            'name' => ['required', 'min:3'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'min:8']
+        ],[
+            'name.required' => 'Nome é obrigratório',
+            'name.min' => 'Nome deve possuir no mínimo 3 caracteres',
+            'email.email' => 'Email inválido!',
+            'email.required' => 'Email é obrigatório.',
+            'password.required' => 'Senha é obrigatória.',
+            'password.min' => 'Senha deve possuir no mínimo 8 caracteres.'
+        ]);
+
+        return redirect()->route('login')->with('message', 'Formulário enviado com sucesso!');
     }
 
     /**

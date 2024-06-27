@@ -31,7 +31,7 @@ class LoginController extends Controller
             return redirect('/home');
         } else {
             return redirect()->back()->withErrors(['login' => 'Email e/ou senha inválida.']);
-        }        
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -9,9 +10,9 @@ Route::get('/', function () {
 });
 
 //Cesar Routes
-Route::get('/register', [UserController::class, 'index']);
-Route::post('/register', [UserController::class, 'create']);
-
+Route::get('/register', [UserController::class, 'index'])->name('register');
+Route::post('/register', [UserController::class, 'create'])->name('create.user');
+Route::get('/event_user', [EventController::class, 'show'])->name('user.events');
 
 
 
