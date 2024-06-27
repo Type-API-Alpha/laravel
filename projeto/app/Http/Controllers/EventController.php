@@ -37,6 +37,11 @@ class EventController extends Controller
      */
     public function show()
     {
+        //
+    }
+
+    public function showEvents() {
+        
         $sessionId = session('loginId');
         $myEvents = Event::where('user_id', $sessionId)->get();
 
