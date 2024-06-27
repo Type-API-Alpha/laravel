@@ -15,7 +15,8 @@ Route::post('/register', [UserController::class, 'create'])->name('create.user')
 Route::get('/event_user', [EventController::class, 'showEvents'])->name('user.events');
 Route::get('/create_event', [EventController::class, 'create'])->name('form.create.event');
 Route::post('/create_event', [EventController::class, 'store'])->name('create.event');
-
+Route::get('/edit_event/{event}', [EventController::class, 'edit'])->name('form.edit.event');
+Route::put('/edit_event/{event}', [EventController::class, 'update'])->name('edit.event');
 
 
 
