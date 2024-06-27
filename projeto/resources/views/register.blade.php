@@ -1,21 +1,10 @@
 @extends('layout')
 @section('title', 'Página de Cadastro')
-@section('body-class', 'custom-body-class')
-@push('styles')
-<style>
-    .custom-body-class {
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-</style>
-@endpush
 
 @section('content')
 
-    <div>
-        <form class="container p-3 rounded text-center bg-secondary" method="POST" action="{{ route('register') }}">
+    <div class="vh-100 w-100 d-flex justify-content-center align-items-center">
+        <form class="container p-3 rounded text-center bg-secondary w-25 h-auto" method="POST" action="{{ route('register') }}">
             @csrf
             <legend class="text-light">Cadastro</legend>
             <div class="mb-3">
