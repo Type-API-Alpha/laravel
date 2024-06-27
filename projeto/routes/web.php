@@ -13,8 +13,8 @@ Route::get('/', function () {
 Route::get('/register', [UserController::class, 'index'])->name('register');
 Route::post('/register', [UserController::class, 'create'])->name('create.user');
 Route::get('/event_user', [EventController::class, 'showEvents'])->name('user.events');
-Route::get('/create_event', [EventController::class, 'create'])->name('create.event');
-
+Route::get('/create_event', [EventController::class, 'create'])->name('form.create.event');
+Route::post('/create_event', [EventController::class, 'store'])->name('create.event');
 
 
 

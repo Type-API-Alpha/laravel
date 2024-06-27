@@ -21,7 +21,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return view('create_event');
     }
 
     /**
@@ -29,7 +29,17 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $event = new Event;
+        $event->title = $request->title;
+        $event->description = $request->description;
+        $event->init_date = $request->init_date;
+        $event->end_date = $request->end_date;
+        $event->entry_price = $request->price;
+        $event->event_image = $request->event_image;
+
+        $event->save();
+
+        return redirect()->route('')->with('message', 'Evento criado com sucesso!');
     }
 
     /**
@@ -41,7 +51,7 @@ class EventController extends Controller
     }
 
     public function showEvents() {
-        
+
         $sessionId = session('loginId');
         $myEvents = Event::where('user_id', $sessionId)->get();
 
