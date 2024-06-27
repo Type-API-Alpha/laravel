@@ -22,7 +22,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return view('create_event');
     }
 
     /**
@@ -30,7 +30,18 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $event = new Event();
+        $event->title = $request->title;
+        $event->description = $request->description;
+        $event->init_date = $request->init_date;
+        $event->end_date = $request->end_date;
+        $event->max_participants = $request->max_participants;
+        $event->entry_price = $request->price;
+        $event->event_image = $request->image;
+        $event->user_id = session('loginId');
+        $event->save();
+
+        return redirect()->route('event.index')->with('message', 'Evento criado com sucesso!');
     }
 
     /**
@@ -50,12 +61,12 @@ class EventController extends Controller
     }
 
     public function showEvents() {
-        
+
         $sessionId = session('loginId');
-        $myEvents = Event::where('user_id', $sessionId)->get();
+        $myEvents = Event::where('user_id', $sessionId)->paginate(3);
 
         $user = User::with('events')->findOrFail($sessionId);
-        $eventsIn = $user->events;
+        $eventsIn = $user->events()->paginate(3, ['*'], 'eventsInPage');
 
         return view('event_user', compact('myEvents', 'eventsIn'));
     }
@@ -65,7 +76,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        return view('edit_event', compact('event'));
     }
 
     /**
@@ -73,7 +84,16 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        //
+        $event->title = $request->title;
+        $event->description = $request->description;
+        $event->init_date = $request->init_date;
+        $event->end_date = $request->end_date;
+        $event->max_participants = $request->max_participants;
+        $event->entry_price = $request->price;
+        $event->event_image = $request->image;
+        $event->save();
+
+        return redirect()->route('user.events')->with('message', 'Evento alterado com sucesso!');
     }
 
     /**

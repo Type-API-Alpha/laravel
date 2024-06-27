@@ -19,8 +19,8 @@ return new class extends Migration
             $table->date('end_date');
             $table->integer('max_participants')->nullable();
             $table->double('entry_price', 10, 2);
-            $table->string('event_image');
-            
+            $table->string('event_image')->nullable();
+
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
