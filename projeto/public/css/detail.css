@@ -1,0 +1,17 @@
+
+
+#span-soldOff {
+    position: relative;
+}
+
+#span-soldOff::before {
+    position: absolute;
+    content: '';
+    right: -2rem;
+    bottom: -0.1rem;
+    width: 2rem;
+    height: 2rem;
+    background-image: url('../assets/icons/info-icon.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+}

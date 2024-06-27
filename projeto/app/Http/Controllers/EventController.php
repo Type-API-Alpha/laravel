@@ -36,9 +36,17 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(Event $event)
     {
-        return view('event_details', compact('event'));
+        $numParticipants = $event->participants()->count();
+        $maxParticipants = $event->max_participants;
+        $soldOff = false;
+
+        if ($numParticipants == $maxParticipants) {
+            $soldOff = true;
+        }
+
+        return view('event_details', compact('event', 'soldOff'));
     }
 
     public function showEvents() {
