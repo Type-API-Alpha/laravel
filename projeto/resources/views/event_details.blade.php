@@ -14,15 +14,25 @@
                     <span>Final: {{ $event->end_date }}</span>
                 </div>
                 <span class="d-block">Entrada: R$ {{ number_format($event->entry_price, 2, ',', '.') }}</span>
-                @if ($soldOff)
-                    <span id="span-soldOff" class="text-danger fw-bold" style="width: max-content">Ingresso esgotado</span>
-                @else
-                    <div class="m-auto d-flex flex-column">
-                        <form  action="{{ route('event.join', $event->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-danger mb-4" style="width: 20rem">Participar</button>
-                        </form>
-                        <a class="m-auto" href="{{ route('event.index')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Home</button></a>
+
+                @php
+                    $previousUrl = parse_url(request()->headers->get('referer'));
+                    $previousRouteName = ltrim($previousUrl['path'], '/');
+                @endphp
+
+                @if ($previousRouteName === 'home')
+                    <div class="d-flex flex-column justify-content-end mt-5 gap-3 align-items-center">
+                        @if ($soldOff)
+                            <span id="span-soldOff" class="text-danger fw-bold mt-5" style="width: max-content">Ingresso esgotado</span>
+                        @else
+                            <div class="d-flex flex-column mt-5">
+                                <form  action="{{ route('event.join', $event->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger" style="width: 20rem">Participar</button>
+                                </form>
+                            </div>
+                        @endif
+                        <a class="3" href="{{ route('event.index')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Home</button></a>
                     </div>
                 @endif
             </div>

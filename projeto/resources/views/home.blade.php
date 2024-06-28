@@ -1,7 +1,21 @@
 @extends('layout')
 @section('content')
-<section class="d-flex" style="margin-left: 21rem">
-        @include('components/sidebar')
+<section @auth style="margin-left: 21rem" @endauth>
+        @guest
+            <header class="d-flex justify-content-between p-3">
+                <h3>EventConnect</h3>
+                <nav >
+                    <ul class="d-flex gap-5" style="list-style: none">
+                    <li><a style="text-decoration: none" href="">login</a></li>
+                        <li><a style="text-decoration: none" href="">cadastro</a></li>
+                        <li>contato</li>
+                    </ul>
+                </nav>
+            </header>
+        @endguest
+        @auth
+            @include('components/sidebar')
+        @endauth
         <div class="container">
             <h4 class="mt-4 mb-3">Eventos</h4>
             <div class="row">
