@@ -4,7 +4,7 @@
 @section('content')
 
     <div class="vh-100 w-100 d-flex justify-content-center align-items-center">
-        <form class="container p-3 rounded text-center bg-secondary w-25 h-auto" method="POST" action="{{ route('create.event') }}">
+        <form enctype="multipart/form-data" class="container p-3 rounded text-center bg-secondary w-25 h-auto" method="POST" action="{{ route('create.event') }}">
             @csrf
 
             <legend class="text-light">Cadastro de evento</legend>

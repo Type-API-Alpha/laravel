@@ -38,8 +38,11 @@ class EventController extends Controller
         $event->end_date = $request->end_date;
         $event->max_participants = $request->max_participants;
         $event->entry_price = $request->price;
-        $event->event_image = $request->image;
-        $event->user_id = session('loginId');
+        $event->user_id = session('loginId');     
+
+        $imagePath = $request->file('image')->store('images', 'public');
+        
+        $event->event_image = $imagePath ?? null;
         $event->save();
 
         return redirect()->route('event.index')->with('message', 'Evento criado com sucesso!');
@@ -54,6 +57,7 @@ class EventController extends Controller
         $maxParticipants = $event->max_participants;
         $soldOff = false;
 
+        // dd($event);
         if ($numParticipants == $maxParticipants) {
             $soldOff = true;
         }
