@@ -15,7 +15,7 @@
                             <div class="card-body d-flex flex-column justify-content-between">
                                 <h6 class="card-title">{{ Str::limit($event->title, 30) }}</h6>
                                 <p class="card-text">{{ Str::limit($event->description, 100) }}</p>
-                                <a href="{{ route('event.detail', $event->id) }}" class="btn-detail btn btn-primary w-50 ">Exibir Detalhes</a>
+                                <a href="{{ route('event.detail', ['event' => $event->id, 'context' => 'owner']) }}" class="btn-detail btn btn-primary w-50 ">Exibir Detalhes</a>
                             </div>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                                 <h6 class="card-title">{{ Str::limit($event->title, 30) }}</h6>
                                 <p class="card-text">{{ Str::limit($event->description, 100) }}</p>
                                 <div class="d-flex gap-3">
-                                    <a href="#" class="btn-detail btn btn-primary flex-grow-1">Visualizar Evento</a>
+                                    <a href="{{ route('event.detail', ['event' => $event->id, 'context' => 'participant']) }}" class="btn-detail btn btn-primary flex-grow-1">Visualizar Evento</a>
                                     <form action="{{ route('leave.event', $event->id) }}" method="POST" style="display: inline;" class="flex-grow-1">
                                         @csrf
                                         @method('DELETE')
@@ -58,5 +58,73 @@
             {{ $eventsIn->links('custom.paginate') }}
         </div>
     </div>
+
+    @if (session('event_delete_success'))
+        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Sucesso</h5>
+                    </div>
+                    <div class="modal-body">
+                        Evento excluido com sucesso!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="closeModalButton">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'), {
+                    backdrop: 'static',
+                    keyboard: false
+                });
+
+                confirmationModal.show();
+
+                document.getElementById('closeModalButton').addEventListener('click', function () {
+                    confirmationModal.hide();
+                });
+            });
+
+        </script>
+    @endif
+
+    @if (session('leave_success'))
+        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Sucesso</h5>
+                    </div>
+                    <div class="modal-body">
+                        Você não faz mais parte deste evento!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="closeModalButton">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'), {
+                    backdrop: 'static',
+                    keyboard: false
+                });
+
+                confirmationModal.show();
+
+                document.getElementById('closeModalButton').addEventListener('click', function () {
+                    confirmationModal.hide();
+                });
+            });
+
+        </script>
+    @endif
 
 @endsection

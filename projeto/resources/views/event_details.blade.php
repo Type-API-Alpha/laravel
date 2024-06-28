@@ -18,9 +18,10 @@
                 @php
                     $previousUrl = parse_url(request()->headers->get('referer'));
                     $previousRouteName = ltrim($previousUrl['path'], '/');
+                    $context = request()->get('context');
                 @endphp
 
-                @if ($previousRouteName === 'home')
+                @if ($context === 'user')
                     <div class="d-flex flex-column justify-content-end mt-5 gap-3 align-items-center">
                         @if ($soldOff)
                             <span id="span-soldOff" class="text-danger fw-bold mt-5" style="width: max-content">Ingresso esgotado</span>
@@ -34,7 +35,11 @@
                         @endif
                         <a class="3" href="{{ route('event.index')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Home</button></a>
                     </div>
-                @elseif ($previousRouteName === 'event_user' || 'event_details')
+                @elseif ($context === 'participant')
+                    <div class="d-flex flex-column justify-content-end mt-5 gap-3 align-items-center">
+                        <a class="3" href="{{ route('user.events')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Voltar</button></a>
+                    </div>
+                @elseif ($context === 'owner')
                     <div class="d-flex flex-column justify-content-end mt-5 gap-3 align-items-center">
                         <a class="3 mt-5" href="{{ route('form.edit.event', $event->id)}}"><button type="submit" class="btn btn-primary" style="width: 20rem">Editar Evento</button></a>
                         <form  action="{{ route('delete.event', $event->id) }}" method="POST">
@@ -83,4 +88,5 @@
 
         </script>
     @endif
+
 @endsection

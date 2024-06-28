@@ -33,7 +33,7 @@
                                 </div>
                                 <h6 class="card-title">{{ Str::limit($event->title, 30) }}</h6>
                                 <p class="card-text">{{ Str::limit($event->description, 100) }}</p>
-                                <a  href="{{ route('event.detail', $event->id) }}" class="btn-detail btn btn-primary w-50 ">ver mais</a>
+                                <a  href="{{ route('event.detail', ['event' => $event->id, 'context' => 'user']) }}" class="btn-detail btn btn-primary w-50 ">ver mais</a>
                             </div>
                         </div>
                     </div>

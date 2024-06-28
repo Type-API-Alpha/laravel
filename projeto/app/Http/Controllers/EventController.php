@@ -45,7 +45,7 @@ class EventController extends Controller
         $event->event_image = $imagePath ?? null;
         $event->save();
 
-        return redirect()->route('event.index')->with('message', 'Evento criado com sucesso!');
+        return redirect()->route('user.events')->with('message', 'Evento criado com sucesso!');
     }
 
     /**
@@ -112,7 +112,7 @@ class EventController extends Controller
         }
 
         $event->delete();
-        return redirect()->route('user.events')->with('success', 'Evento excluído com sucesso!');
+        return redirect()->route('user.events')->with('event_delete_success', 'Evento excluído com sucesso!');
     }
 
     public function leaveEvent(Request $request, Event $event)
@@ -122,6 +122,6 @@ class EventController extends Controller
 
         userEvent::where('user_id', $userId)->where('event_id', $eventId)->delete();
 
-        return redirect()->route('user.events')->with('message', 'Você saiu do evento com sucesso!');
+        return redirect()->route('user.events')->with('leave_success', 'Você saiu do evento com sucesso!');
     }
 }
