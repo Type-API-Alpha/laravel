@@ -5,7 +5,7 @@
     <section id="event-detail" class="d-flex justify-content-center align-items-center" style="height: 100vh">
         <div class="h-75 d-flex shadow" style="max-height: 600px">
             <div>
-                <img class="rounded h-100" src="{{ $event->event_image }}" style="max-width: 400px">
+                <img class="rounded h-100" src="{{ asset('storage/' . $event->event_image) }}" style="max-width: 400px">
             </div>
             <div id="container-event-infos" class="p-4 d-flex flex-column gap-2">
                 <h2 style="max-width: 350px">{{ $event->title }}</h2>
