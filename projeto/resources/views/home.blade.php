@@ -1,17 +1,30 @@
 @extends('layout')
 @section('content')
-<section @auth style="margin-left: 21rem" @endauth>
+<section id="home" @auth style="margin-left: 21rem" @endauth>
         @guest
-            <header class="d-flex justify-content-between p-3">
-                <h3>EventConnect</h3>
-                <nav >
-                    <ul class="d-flex gap-5" style="list-style: none">
-                    <li><a style="text-decoration: none" href="">login</a></li>
-                        <li><a style="text-decoration: none" href="">cadastro</a></li>
-                        <li>contato</li>
+            <header class="d-flex justify-content-between align-items-center p-3 text-primary-emphasis mb-5">
+                <h3 id="home-title" class="fw-normal">Event<span class="text-info">Sphere</span></h3>
+                <nav>
+                    <ul class="d-flex gap-2" style="list-style: none; margin: 0">
+                        <li><a class="shadow-sm btn btn-info fw-bold text-white" style="text-decoration: none" href="">cadastro</a></li>
+                        <li><a class="shadow-sm btn btn-outline-info fw-bold" style="text-decoration: none" href="">login</a></li>
                     </ul>
                 </nav>
             </header>
+            <div class="container mt-5 pt-5">
+                <div class="row pt-5">
+                    <div id="container-content" class="col-md-6 col-sm-12 text-body-emphasis">
+                        <h2 class="mb-4">Sua Plataforma Completa para <span class="text-info">Descobrir, Cadastrar e Participar</span> de Eventos Incríveis</h2>
+                        <p class="fs-5 lh-sm">Junte-se à nossa vibrante comunidade! Descubra eventos emocionantes, 
+                        os seus próprios e participe de experiências únicas que vão transformar sua rotina.
+                        Seja parte de uma <span style="color: #DC3545">rede que conecta pessoas e eventos em um só lugar</span>.</p>
+                        <button class="btn btn-danger mt-4 w-50">cadastrar</button>
+                    </div>
+                    <div class="col-md-6 col-sm-12 position-relative">
+                        <img id="image-home" src="{{ asset('assets/icons/main-image.svg') }}" alt="">
+                    </div>
+                </div>
+            </div>
         @endguest
         @auth
             @include('components/sidebar')
