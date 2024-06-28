@@ -38,10 +38,10 @@ class EventController extends Controller
         $event->end_date = $request->end_date;
         $event->max_participants = $request->max_participants;
         $event->entry_price = $request->price;
-        $event->user_id = session('loginId');     
+        $event->user_id = session('loginId');
 
         $imagePath = $request->file('image')->store('images', 'public');
-        
+
         $event->event_image = $imagePath ?? null;
         $event->save();
 
@@ -105,14 +105,21 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        $hasParticipants = userEvent::where('event_id', $event->id)->exists();
+
+        if ($hasParticipants) {
+            return redirect()->route('event.detail', $event->id)->with('error', 'O evento não pode ser excluído porque possui participantes.');
+        }
+
+        $event->delete();
+        return redirect()->route('user.events')->with('success', 'Evento excluído com sucesso!');
     }
 
     public function leaveEvent(Request $request, Event $event)
     {
         $userId = session('loginId');
         $eventId = $event->id;
-        
+
         userEvent::where('user_id', $userId)->where('event_id', $eventId)->delete();
 
         return redirect()->route('user.events')->with('message', 'Você saiu do evento com sucesso!');

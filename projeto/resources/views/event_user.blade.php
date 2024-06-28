@@ -15,7 +15,7 @@
                             <div class="card-body d-flex flex-column justify-content-between">
                                 <h6 class="card-title">{{ Str::limit($event->title, 30) }}</h6>
                                 <p class="card-text">{{ Str::limit($event->description, 100) }}</p>
-                                <a href="{{ route('form.edit.event', $event->id) }}" class="btn-detail btn btn-primary w-50 ">Editar Evento</a>
+                                <a href="{{ route('event.detail', $event->id) }}" class="btn-detail btn btn-primary w-50 ">Exibir Detalhes</a>
                             </div>
                         </div>
                     </div>
