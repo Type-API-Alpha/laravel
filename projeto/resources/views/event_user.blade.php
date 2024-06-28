@@ -4,7 +4,7 @@
 @include('components/sidebar')
     <button>Criar evento</button>
     <div class="container" style="margin-left: 20rem">
-        <h1 class="text-center">Meus eventos</h1>
+        <h2 class="text-center">Meus eventos</h2>
         <div class="row">
             @if($myEvents->isEmpty())
                 <p>Você não possui nenhum evento.</p>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="container" style="margin-left: 20rem">
-        <h1 class="text-center">Eventos que faço parte</h1>
+        <h2 class="text-center">Eventos que faço parte</h2>
         <div class="row">
             @if($eventsIn->isEmpty())
                 <p>Você não faz parte de nenhum evento.</p>

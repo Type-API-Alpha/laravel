@@ -16,12 +16,10 @@
                 <span class="d-block">Entrada: R$ {{ number_format($event->entry_price, 2, ',', '.') }}</span>
 
                 @php
-                    $previousUrl = parse_url(request()->headers->get('referer'));
-                    $previousRouteName = ltrim($previousUrl['path'], '/');
                     $context = request()->get('context');
                 @endphp
 
-                @if ($context === 'user')
+                @if ($context === 'public')
                     <div class="d-flex flex-column justify-content-end mt-5 gap-3 align-items-center">
                         @if ($soldOff)
                             <span id="span-soldOff" class="text-danger fw-bold mt-5" style="width: max-content">Ingresso esgotado</span>
