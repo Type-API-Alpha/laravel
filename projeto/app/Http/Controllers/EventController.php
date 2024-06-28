@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\userEvent;
 
 class EventController extends Controller
 {
@@ -102,5 +103,15 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         //
+    }
+
+    public function leaveEvent(Request $request, Event $event)
+    {
+        $userId = session('loginId');
+        $eventId = $event->id;
+        
+        userEvent::where('user_id', $userId)->where('event_id', $eventId)->delete();
+
+        return redirect()->route('user.events')->with('message', 'Você saiu do evento com sucesso!');
     }
 }

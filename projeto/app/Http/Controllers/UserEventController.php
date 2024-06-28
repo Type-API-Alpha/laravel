@@ -15,7 +15,6 @@ class UserEventController extends Controller
         $newRegistration->user_id = $userId;
         $newRegistration->event_id = $event->id;
         $newRegistration->save();
-        $event->save();
 
         return redirect()->back()->with('success', true);
     }

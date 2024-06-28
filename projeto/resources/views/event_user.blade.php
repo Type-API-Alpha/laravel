@@ -38,9 +38,13 @@
                             <div class="card-body d-flex flex-column justify-content-between">
                                 <h6 class="card-title">{{ Str::limit($event->title, 30) }}</h6>
                                 <p class="card-text">{{ Str::limit($event->description, 100) }}</p>
-                                <div class="d-flex gap-5">
-                                    <a href="#" class="btn-detail btn btn-primary w-50 ">Visualizar Evento</a>
-                                    <a href="#" class="btn-detail btn btn-danger w-50 ">Sair do evento</a>
+                                <div class="d-flex gap-3">
+                                    <a href="#" class="btn-detail btn btn-primary flex-grow-1">Visualizar Evento</a>
+                                    <form action="{{ route('leave.event', $event->id) }}" method="POST" style="display: inline;" class="flex-grow-1">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-detail btn btn-danger w-100">Sair do evento</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
