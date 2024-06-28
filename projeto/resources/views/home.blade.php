@@ -1,6 +1,7 @@
 @extends('layout')
 @section('content')
-    <section>
+<section class="d-flex" style="margin-left: 21rem">
+        @include('components/sidebar')
         <div class="container">
             <h4 class="mt-4 mb-3">Eventos</h4>
             <div class="row">

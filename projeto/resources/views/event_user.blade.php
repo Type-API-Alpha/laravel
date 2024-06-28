@@ -1,8 +1,9 @@
 @extends('layout')
 @section('title', 'Eventos do usuário')
 @section('content')
+@include('components/sidebar')
     <button>Criar evento</button>
-    <div class="container">
+    <div class="container" style="margin-left: 20rem">
         <h1 class="text-center">Meus eventos</h1>
         <div class="row">
             @if($myEvents->isEmpty())
@@ -26,7 +27,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="margin-left: 20rem">
         <h1 class="text-center">Eventos que faço parte</h1>
         <div class="row">
             @if($eventsIn->isEmpty())

@@ -56,7 +56,6 @@ class EventController extends Controller
         $maxParticipants = $event->max_participants;
         $soldOff = false;
 
-        // dd($event);
         if ($numParticipants == $maxParticipants) {
             $soldOff = true;
         }

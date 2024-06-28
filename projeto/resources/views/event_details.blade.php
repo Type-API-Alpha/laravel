@@ -1,8 +1,7 @@
 @extends('layout')
 
-
 @section('content')
-    <section id="event-detail" class="d-flex justify-content-center align-items-center" style="height: 100vh">
+<section id="event-detail" class="d-flex justify-content-center align-items-center" style="height: 100vh">
         <div class="h-75 d-flex shadow" style="max-height: 600px">
             <div>
                 <img class="rounded h-100" src="{{ asset('storage/' . $event->event_image) }}" style="max-width: 400px">
@@ -18,14 +17,14 @@
                 @if ($soldOff)
                     <span id="span-soldOff" class="text-danger fw-bold" style="width: max-content">Ingresso esgotado</span>
                 @else
-                <div class="m-auto d-flex flex-column">
+                    <div class="m-auto d-flex flex-column">
                         <form  action="{{ route('event.join', $event->id) }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-danger mb-4" style="width: 20rem">Participar</button>
                         </form>
-                    @endif
-                    <a class="m-auto" href="{{ route('event.index')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Home</button></a>
-                </div>
+                        <a class="m-auto" href="{{ route('event.index')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Home</button></a>
+                    </div>
+                @endif
             </div>
         </div>
     </section>

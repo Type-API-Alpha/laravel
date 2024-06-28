@@ -24,7 +24,7 @@
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-warning w-50 mt-4">Login</button>
+            <button type="submit" class="btn btn-primary w-50 mt-4">Login</button>
         </form>
         @if ($errors->has('login'))
             <span class="text-danger">{{ $errors->first('login') }}</span>
