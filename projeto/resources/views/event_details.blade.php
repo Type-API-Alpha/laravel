@@ -16,11 +16,10 @@
                 <span class="d-block">Entrada: R$ {{ number_format($event->entry_price, 2, ',', '.') }}</span>
 
                 @php
-                    $previousUrl = parse_url(request()->headers->get('referer'));
-                    $previousRouteName = ltrim($previousUrl['path'], '/');
+                    $context = request()->get('context');
                 @endphp
 
-                @if ($previousRouteName === 'home')
+                @if ($context === 'public')
                     <div class="d-flex flex-column justify-content-end mt-5 gap-3 align-items-center">
                         @if ($soldOff)
                             <span id="span-soldOff" class="text-danger fw-bold mt-5" style="width: max-content">Ingresso esgotado</span>
@@ -33,6 +32,25 @@
                             </div>
                         @endif
                         <a class="3" href="{{ route('event.index')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Home</button></a>
+                    </div>
+                @elseif ($context === 'participant')
+                    <div class="d-flex flex-column justify-content-end mt-5 gap-3 align-items-center">
+                        <a class="3" href="{{ route('user.events')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Voltar</button></a>
+                    </div>
+                @elseif ($context === 'owner')
+                    <div class="d-flex flex-column justify-content-end mt-5 gap-3 align-items-center">
+                        <a class="3 mt-5" href="{{ route('form.edit.event', $event->id)}}"><button type="submit" class="btn btn-primary" style="width: 20rem">Editar Evento</button></a>
+                        <form  action="{{ route('delete.event', $event->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" style="width: 20rem">Excluir Evento</button>
+                        </form>
+                        <a class="3" href="{{ route('user.events')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Voltar</button></a>
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -59,13 +77,14 @@
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'), {
-                    backdrop: 'static', 
-                    keyboard: false 
+                    backdrop: 'static',
+                    keyboard: false
                 });
 
                 confirmationModal.show();
             });
-            
+
         </script>
     @endif
+
 @endsection

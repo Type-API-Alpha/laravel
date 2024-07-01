@@ -15,7 +15,7 @@
                 <div class="row pt-5">
                     <div id="container-content" class="col-md-6 col-sm-12 d-flex flex-column justify-content-center text-body-emphasis">
                         <h2 class="mb-4">Sua Plataforma Completa para <span class="text-info">Descobrir, Cadastrar e Participar</span> de Eventos Incríveis</h2>
-                        <p class="fs-5 lh-sm">Junte-se à nossa vibrante comunidade! Descubra eventos emocionantes, 
+                        <p class="fs-5 lh-sm">Junte-se à nossa vibrante comunidade! Descubra eventos emocionantes,
                         os seus próprios e participe de experiências únicas que vão transformar sua rotina.
                         Seja parte de uma <span style="color: #f56d1e">rede que conecta pessoas e eventos em um só lugar</span>.</p>
                         <a href="{{ route('register') }}"><button class="shadow btn mt-4 w-50 fw-bold fs-5" style="background-color: #f56d1e">cadastrar</button></a>
@@ -56,7 +56,7 @@
                                 </div>
                                 <h6 class="card-title mt-3">{{ Str::limit($event->title, 30) }}</h6>
                                 <p class="card-text">{{ Str::limit($event->description, 100) }}</p>
-                                <a class="fw-bold" style="text-decoration: none; color:#be3c00" href="{{ route('event.detail', $event->id) }}">ver mais<img class="ms-1" src="{{ asset('assets/icons/see-more.svg')}}" ></a>
+                                <a  href="{{ route('event.detail', ['event' => $event->id, 'context' => 'public']) }}" class="btn-detail btn btn-primary w-50 ">ver mais</a>
                             </div>
                         </div>
                     </div>

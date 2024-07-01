@@ -10,7 +10,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Cesar Routes
+
 Route::get('/register', [UserController::class, 'index'])->name('register');
 Route::post('/register', [UserController::class, 'create'])->name('create.user');
 Route::get('/event_user', [EventController::class, 'showEvents'])->name('user.events');
@@ -19,7 +19,7 @@ Route::post('/create_event', [EventController::class, 'store'])->name('create.ev
 Route::get('/edit_event/{event}', [EventController::class, 'edit'])->name('form.edit.event');
 Route::put('/edit_event/{event}', [EventController::class, 'update'])->name('edit.event');
 Route::delete('/event_user/{event}', [EventController::class, 'leaveEvent'])->name('leave.event');
-
+Route::delete('/event/{event}', [EventController::class, 'destroy'])->name('delete.event');
 
 
 
