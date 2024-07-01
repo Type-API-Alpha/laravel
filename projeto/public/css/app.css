@@ -1,6 +1,16 @@
 
 body {
     font-family: "Roboto", sans-serif !important;
+    margin: 0;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(233, 233, 233);
+    z-index: 10;
 }
 
 #main-sidebar {

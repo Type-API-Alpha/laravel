@@ -3,15 +3,6 @@
     background-color: rgb(245, 245, 245);
 }
 
-#home header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgb(233, 233, 233);
-    z-index: 10;
-}
-
 #home-title {
     position: relative;
     padding-left: 2rem;
@@ -35,4 +26,22 @@
     position: relative;
     left: calc(100% - 25rem);
     filter: drop-shadow(0px 4px 4px rgb(131, 131, 131));
+}
+
+#title-card-section {
+    position: relative;
+    width: max-content;
+}
+
+#title-card-section::before {
+    position: absolute;
+    content: '';
+    left: -2.5rem;
+    bottom: 0.4rem;
+    width: 2rem;
+    height: 2rem;
+    background-image: url('../assets/icons/event-icon-2.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }

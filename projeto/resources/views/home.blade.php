@@ -1,16 +1,8 @@
 @extends('layout')
 @section('content')
-<section id="home" @auth style="margin-left: 21rem" @endauth>
+<section id="home">
+        @include('components.header')
         @guest
-            <header class="d-flex justify-content-between align-items-center p-3 text-primary-emphasis mb-5">
-                <h3 id="home-title" class="fw-normal">Event<span class="text-info">Sphere</span></h3>
-                <nav>
-                    <ul class="d-flex gap-2" style="list-style: none; margin: 0">
-                        <li><a href="{{ route('register') }}" class="shadow-sm btn btn-info fw-bold text-white" style="text-decoration: none" href="">cadastro</a></li>
-                        <li><a href="{{ route('login') }}" class="shadow-sm btn btn-outline-info fw-bold" style="text-decoration: none" href="">login</a></li>
-                    </ul>
-                </nav>
-            </header>
             <div class="container mt-5 pt-5 border-bottom pb-5 mb-5" >
                 <div class="row pt-5">
                     <div id="container-content" class="col-md-6 col-sm-12 d-flex flex-column justify-content-center text-body-emphasis">
@@ -26,11 +18,8 @@
                 </div>
             </div>
         @endguest
-        @auth
-            @include('components/sidebar')
-        @endauth
-        <div class="container">
-            <h4 class="mt-4 mb-3">Eventos</h4>
+        <div class="container pt-5 pt-5">
+            <h3 class="mb-5 @auth pt-5 mt-5 @endauth m-auto text-center " id="title-card-section">Eventos</h3>
             <div class="row">
                 @foreach ($events as $event)
                     <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
@@ -64,7 +53,7 @@
             </div>
         </div>
     </section>
-        <div class="mt-5">
+        <div class="pt-5 pb-5" style="background-color: rgb(245, 245, 245);">
             {{ $events->links('custom.paginate') }}
         </div>
 @endsection
