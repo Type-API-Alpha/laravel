@@ -13,7 +13,7 @@ class LoginController extends Controller
     public function auth(Request $request)
     {
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'string'],
             'password' => ['required', 'min:8'],
         ], [
             'email.email' => 'Email inválido',

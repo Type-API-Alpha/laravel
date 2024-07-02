@@ -1,10 +1,11 @@
 @extends('layout')
 @section('title', 'Eventos do usuário')
 @section('content')
-@include('components/sidebar')
-    <button>Criar evento</button>
-    <div class="container" style="margin-left: 20rem">
-        <h2 class="text-center">Meus eventos</h2>
+{{-- <button>Criar evento</button> --}}
+<section>
+    @include('components.header')
+    <div class="container mt-5 pt-5">
+        <h2 class="text-center @auth mt-5 @endauth">Meus eventos</h2>
         <div class="row">
             @if($myEvents->isEmpty())
                 <p>Você não possui nenhum evento.</p>
@@ -27,7 +28,7 @@
         </div>
     </div>
 
-    <div class="container" style="margin-left: 20rem">
+    <div class="container">
         <h2 class="text-center">Eventos que faço parte</h2>
         <div class="row">
             @if($eventsIn->isEmpty())
@@ -109,7 +110,7 @@
                 </div>
             </div>
         </div>
-
+</section>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'), {

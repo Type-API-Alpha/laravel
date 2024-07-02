@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\EventPhoto;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\userEvent;
@@ -62,7 +63,8 @@ class EventController extends Controller
             $soldOff = true;
         }
 
-        return view('event_details', compact('event', 'soldOff'));
+        $eventPhotos = $event->photos()->paginate(4);
+        return view('event_details', compact('event', 'soldOff', 'eventPhotos'));
     }
 
     public function showEvents() {
@@ -116,8 +118,7 @@ class EventController extends Controller
         return redirect()->route('user.events')->with('event_delete_success', 'Evento excluído com sucesso!');
     }
 
-    public function leaveEvent(Request $request, Event $event)
-    {
+    public function leaveEvent(Request $request, Event $event) {
         $userId = session('loginId');
         $eventId = $event->id;
 
@@ -137,5 +138,20 @@ class EventController extends Controller
     {
         $event->users()->detach($user->id);
         return redirect()->route('event.participants', $event->id)->with(['remove_participant_success' => 'Participante removido do evento com sucesso!', 'removedUser' => $user]);
+    }
+
+    public function addGaleryPhoto(Request $request, $id) {
+        if ($request->hasFile('image')) {
+
+            $imagePath = $request->file('image')->store('event_images', 'public');
+            EventPhoto::create([
+                'event_id' => $id,
+                'event_photo_url' => $imagePath,
+            ]);
+
+            return back()->with('success-photo', 'Foto adicionada com sucesso.');
+        }
+
+        return back()->with('error', 'Nenhuma foto foi enviada.');
     }
 }

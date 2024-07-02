@@ -1,5 +1,9 @@
 
 
+#event-detail, #event-galery {
+    background-color: #f5f5f5;
+}
+
 #span-soldOff {
     position: relative;
 }
