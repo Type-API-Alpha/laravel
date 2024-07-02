@@ -112,15 +112,11 @@
                     keyboard: false
                 });
 
-                                    confirmationModal.show();
-                                });
-                            </script>
-                        @endif
-                    </div>
-                @endif
-            </div>
-        </div>
-    </section>
+                confirmationModal.show();
+            });
+        </script>
+    @endif
+
     <section id="event-galery">
         <div id="form-add-photo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="formAddPhotoLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
