@@ -6,6 +6,7 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\userEvent;
+use Illuminate\Support\Facades\Gate;
 
 class EventController extends Controller
 {
@@ -108,7 +109,7 @@ class EventController extends Controller
         $hasParticipants = userEvent::where('event_id', $event->id)->exists();
 
         if ($hasParticipants) {
-            return redirect()->route('event.detail', $event->id)->with('error', 'O evento não pode ser excluído porque possui participantes.');
+            return redirect()->route('event.detail', ['event' => $event->id, 'context' => 'owner'])->withErrors(['error' => 'O evento não pode ser excluído porque possui participantes.']);
         }
 
         $event->delete();
@@ -123,5 +124,18 @@ class EventController extends Controller
         userEvent::where('user_id', $userId)->where('event_id', $eventId)->delete();
 
         return redirect()->route('user.events')->with('leave_success', 'Você saiu do evento com sucesso!');
+    }
+
+    public function getParticipants(Event $event)
+    {
+        $participants = $event->users;
+        // return redirect()->route('event.participants')
+        return view('event_participants', compact('participants', 'event'));
+    }
+
+    public function removeParticipant(Event $event, User $user)
+    {
+        $event->users()->detach($user->id);
+        return redirect()->route('event.participants', $event->id)->with(['remove_participant_success' => 'Participante removido do evento com sucesso!', 'removedUser' => $user]);
     }
 }

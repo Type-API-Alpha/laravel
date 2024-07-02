@@ -6,11 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserEventController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-
+Route::get('/', [ EventController::class, 'index' ]) ->name('home.index');
 Route::get('/register', [UserController::class, 'index'])->name('register');
 Route::post('/register', [UserController::class, 'create'])->name('create.user');
 Route::get('/event_user', [EventController::class, 'showEvents'])->name('user.events');
@@ -21,17 +18,8 @@ Route::put('/edit_event/{event}', [EventController::class, 'update'])->name('edi
 Route::delete('/event_user/{event}', [EventController::class, 'leaveEvent'])->name('leave.event');
 Route::delete('/event/{event}', [EventController::class, 'destroy'])->name('delete.event');
 
-
-
-
-
-
-
-
-
-
-
-
+Route::get('/event/{event}/participants', [EventController::class, 'getParticipants'])->name('event.participants');
+Route::delete('/event/{event}/participants/{user}', [EventController::class, 'removeParticipant'])->name('event.removeParticipant');
 
 Route::view('/login', 'login') ->name('login');
 Route::post('/auth', [ LoginController::class, 'auth' ]) ->name('login.auth');

@@ -6,7 +6,7 @@
             <div>
                 <img class="rounded h-100" src="{{ asset('storage/' . $event->event_image) }}" style="max-width: 400px">
             </div>
-            <div id="container-event-infos" class="p-4 d-flex flex-column gap-2">
+            <div id="container-event-infos" class="p-4 d-flex flex-column gap-2 position-relative">
                 <h2 style="max-width: 350px">{{ $event->title }}</h2>
                 <p style="max-width: 400px">{{ $event->description }}</p>
                 <div>
@@ -31,15 +31,16 @@
                                 </form>
                             </div>
                         @endif
-                        <a class="3" href="{{ route('event.index')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Home</button></a>
+                        <a class="3" href="{{ route('event.index') }}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Home</button></a>
                     </div>
                 @elseif ($context === 'participant')
                     <div class="d-flex flex-column justify-content-end mt-5 gap-3 align-items-center">
-                        <a class="3" href="{{ route('user.events')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Voltar</button></a>
+                        <a class="3" href="{{ route('user.events') }}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Voltar</button></a>
                     </div>
                 @elseif ($context === 'owner')
                     <div class="d-flex flex-column justify-content-end mt-5 gap-3 align-items-center">
                         <a class="3 mt-5" href="{{ route('form.edit.event', $event->id)}}"><button type="submit" class="btn btn-primary" style="width: 20rem">Editar Evento</button></a>
+                        <a class="3 btn btn-success" href="{{ route('event.participants', $event)}}" style="width: 20rem">Exibir participantes</a>
                         <form  action="{{ route('delete.event', $event->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
@@ -51,7 +52,22 @@
                                 {{ session('error') }}
                             </div>
                         @endif
+                        @if ($errors->has('error'))
+                            <div class="alert alert-danger position-absolute top-100">
+                                <span>{{ $errors->first('error') }}</span>
+                            </div>
+                        @endif
                     </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            setTimeout(() => {
+                                const errSpans = document.querySelectorAll('.alert');
+                                errSpans.forEach((errSpan) => {
+                                    errSpan.remove();
+                                });
+                            }, 3000);
+                        });
+                    </script>
                 @endif
             </div>
         </div>

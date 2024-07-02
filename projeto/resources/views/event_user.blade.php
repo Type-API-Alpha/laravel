@@ -126,5 +126,4 @@
 
         </script>
     @endif
-
 @endsection
