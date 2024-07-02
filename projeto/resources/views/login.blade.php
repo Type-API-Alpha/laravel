@@ -2,7 +2,7 @@
 @extends('layout')
 @section('content')
     <section class="vh-100 d-flex justify-content-center align-items-center" id="login-section">
-        <form class="w-100 h-75 p-5 d-flex flex-column gap-3 justify-content-center align-items-center shadow rounded"  style="max-width: 450px; max-height: 400px" action="{{ route('login.auth') }}" method="POST">
+        <form class="position-relative w-100 h-75 p-5 d-flex flex-column gap-3 justify-content-center align-items-center shadow rounded"  style="max-width: 450px; max-height: 400px" action="{{ route('login.auth') }}" method="POST">
             @csrf
             @method('POST')
             <h3 class="fw-medium .text-body">login</h3>
@@ -12,7 +12,9 @@
                     <input id="input-email" type="email" placeholder="example@gmail.com" name="email" class="form-control rounded-pill">
                 </div>
                 @error('email')
-                    <span class="text-danger">{{ $message }}</span>
+                    <div class="alert position-absolute top-100 alert-danger" role="alert">
+                        {{ $message }}
+                    </div>
                 @enderror
             </div>
             <div class="mb-1 w-100">
@@ -21,14 +23,25 @@
                     <input id="input-password" type="password" name="password" class="form-control  rounded-pill">
                 </div>
                 @error('password')
-                    <span class="text-danger">{{ $message }}</span>
+                    <div class="alert position-absolute top-100 alert-danger" role="alert">
+                        {{ $message }}
+                    </div>
                 @enderror
             </div>
             <button type="submit" class="btn btn-primary w-50 mt-4">Login</button>
+
+            @if ($errors ->has('invalidCredentials'))
+                <div class="alert position-absolute top-100 alert-danger" role="alert">
+                    {{ $errors ->first('invalidCredentials') }}
+                </div>
+            @endif
+            @if (session('storageSuccess'))
+                <div class="alert position-absolute top-100 alert-primary" role="alert">
+                    {{ session('storageSuccess') }}
+                </div>
+            @endif
         </form>
-        @if ($errors->has('login'))
-            <span class="text-danger">{{ $errors->first('login') }}</span>
-        @endif
+
     </section>
 @endsection
 
@@ -36,7 +49,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
-                const errSpans = document.querySelectorAll('.text-danger');
+                const errSpans = document.querySelectorAll('.alert');
                 errSpans.forEach((errSpan) => {
                     errSpan.remove();
                 });
