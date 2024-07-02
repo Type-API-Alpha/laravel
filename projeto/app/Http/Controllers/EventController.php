@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEventRequest;
 use App\Models\Event;
 use App\Models\EventPhoto;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\userEvent;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller {
     public function index() {
@@ -19,19 +21,20 @@ class EventController extends Controller {
         return view('create_event');
     }
 
-    public function store(Request $request) {
-        $event = new Event(); 
-        $event->title = $request->title;
-        $event->description = $request->description;
-        $event->init_date = $request->init_date;
-        $event->end_date = $request->end_date;
-        $event->max_participants = $request->max_participants;
-        $event->entry_price = $request->price;
-        // $user = Auth::user() ->id;
-        $event->user_id = session('loginId');
+    public function store(StoreEventRequest $request): RedirectResponse {
+
         $imagePath = $request->file('image')->store('images', 'public');
-        $event->event_image = $imagePath ?? null;
-        $event->save();
+
+        Event::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'init_date' => $request->init_date,
+            'end_date' => $request->end_date,
+            'max_participants' => $request->max_participants,
+            'entry_price' => $request->entry_price,
+            'user_id' => Auth::user()->id,
+            'event_image' => $imagePath ?? null,
+        ]);
 
         return redirect()->route('user.events')->with('message', 'Evento criado com sucesso!');
     }
@@ -96,7 +99,6 @@ class EventController extends Controller {
     public function getParticipants(Event $event)
     {
         $participants = $event->users;
-        // return redirect()->route('event.participants')
         return view('event_participants', compact('participants', 'event'));
     }
 
