@@ -13,7 +13,7 @@
                     @php
                         $explodedInitDate = explode('-', $event->init_date);
                         $initDate = "$explodedInitDate[2]/$explodedInitDate[1]";
-                        
+
                         $explodedEndDate = explode('-', $event->end_date);
                         $endDate = "$explodedEndDate[2]/$explodedEndDate[1]";
                     @endphp
@@ -38,15 +38,16 @@
                                 </form>
                             </div>
                         @endif
-                        <a class="3" href="{{ route('event.index')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Home</button></a>
+                        <a class="3" href="{{ route('event.index') }}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Home</button></a>
                     </div>
                 @elseif ($context === 'participant')
-                    <div class="d-flex flex-column justify-content-end mt-5 gap-3">
-                        <a class="3" href="{{ route('user.events')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Voltar</button></a>
+                    <div class="d-flex flex-column justify-content-end mt-5 gap-3 align-items-center">
+                        <a class="3" href="{{ route('user.events') }}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Voltar</button></a>
                     </div>
                 @elseif ($context === 'owner')
                     <div class="d-flex flex-column justify-content-end mt-5 gap-3">
                         <a class="3 mt-5" href="{{ route('form.edit.event', $event->id)}}"><button type="submit" class="btn btn-primary" style="width: 20rem">Editar Evento</button></a>
+                        <a class="3 btn btn-success" href="{{ route('event.participants', $event)}}" style="width: 20rem">Exibir participantes</a>
                         <form  action="{{ route('delete.event', $event->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
@@ -54,8 +55,8 @@
                         </form>
                         <button type="button" class="btn btn-warning" style="width: 20rem" data-bs-toggle="modal" data-bs-target="#form-add-photo">Adicionar foto</button>
                         <a class="3" href="{{ route('user.events')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Voltar</button></a>
-                    
-                        @if(session('error'))      
+
+                        @if(session('error'))
                             <div id="error-container" class="alert alert-danger" style="position: absolute; bottom: -0.8rem">
                                 {{ session('error') }}
                             </div>
@@ -66,38 +67,56 @@
                                 }, 4000);
                             </script>
                         @endif
-                        @if (session('success'))
-                            <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Sucesso</h5>
-                                        </div>
-                                        <div class="modal-body">
-                                            Participação confirmada!!
-                                        </div>
-                                        <div class="modal-footer">
-                                            <a href="{{ route('event.index') }}"><button type="button" class="btn btn-primary">Home</button></a>
-                                        </div>
-                                    </div>
-                                </div>
+                        @if ($errors->has('error'))
+                            <div class="alert alert-danger position-absolute top-100">
+                                <span>{{ $errors->first('error') }}</span>
                             </div>
-                            <script>
-                                document.addEventListener('DOMContentLoaded', function () {
-                                    const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'), {
-                                        backdrop: 'static',
-                                        keyboard: false
-                                    });
-
-                                    confirmationModal.show();
-                                });
-                            </script>
                         @endif
                     </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            setTimeout(() => {
+                                const errSpans = document.querySelectorAll('.alert');
+                                errSpans.forEach((errSpan) => {
+                                    errSpan.remove();
+                                });
+                            }, 3000);
+                        });
+                    </script>
                 @endif
             </div>
         </div>
     </section>
+
+    @if (session('success'))
+        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Sucesso</h5>
+                    </div>
+                    <div class="modal-body">
+                        Participação confirmada!!
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{{ route('event.index') }}"><button type="button" class="btn btn-primary">Home</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'), {
+                    backdrop: 'static',
+                    keyboard: false
+                });
+
+                confirmationModal.show();
+            });
+        </script>
+    @endif
+
     <section id="event-galery">
         <div id="form-add-photo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="formAddPhotoLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
