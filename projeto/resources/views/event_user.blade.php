@@ -5,7 +5,13 @@
 <section>
     @include('components.header')
     <div class="container mt-5 pt-5">
-        <h2 class="text-center @auth mt-5 @endauth">Meus eventos</h2>
+        <h2 class="text-center @auth mt-5 mb-2 @endauth">Meus eventos</h2>
+
+        <a href="{{ route('create.event') }}">
+            <button type="button" class="btn btn-outline-primary mb-2"><i class="bi bi-plus-square-dotted" style="font-size: 1rem;"></i>
+                Criar evento
+            </button>
+        </a>
         <div class="row">
             @if($myEvents->isEmpty())
                 <p>Você não possui nenhum evento.</p>

@@ -2,9 +2,9 @@
 @section('title', 'Página de Cadastro de Evento')
 
 @section('content')
-
-    <section class="vh-100 d-flex justify-content-center align-items-center" id="login-section">
-        <form class="position-relative w-100 h-75 p-5 d-flex flex-column gap-3 justify-content-center align-items-center shadow rounded" style="max-width: 500px; max-height: fit-content" enctype="multipart/form-data" method="POST" action="{{ route('create.event') }}">
+@include('components.header')
+    <section class="vh-100 d-flex justify-content-center align-items-center flex-column" id="login-section">
+        <form class="position-relative w-100 p-5 d-flex flex-column gap-3 justify-content-center align-items-center shadow rounded" style="max-width: 500px; max-height: fit-content; margin-top: 3rem;" enctype="multipart/form-data" method="POST" action="{{ route('create.event') }}">
             @csrf
             @method('POST')
             <h3 class="fw-medium .text-body">Cadastro de evento</h3>
@@ -12,6 +12,12 @@
                 <label for="input-title" class="form-label">Título </label>
                 <div id="container-input-title">
                     <input id="input-title" type="text" name="title" class="form-control rounded-pill" required>
+                </div>
+            </div>
+            <div class="mb-1 w-100">
+                <label for="input-description" class="form-label">Descrição</label>
+                <div id="container-input-description">
+                    <input id="input-description" type="text" name="description" class="form-control rounded-pill" required>
                 </div>
             </div>
             <div class="mb-1 w-100 d-flex">
