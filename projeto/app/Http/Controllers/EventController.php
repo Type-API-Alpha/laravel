@@ -70,8 +70,8 @@ class EventController extends Controller {
         $event->init_date = $request->init_date;
         $event->end_date = $request->end_date;
         $event->max_participants = $request->max_participants;
-        $event->entry_price = $request->price;
-        $event->event_image = $request->image;
+        $event->entry_price = $request->entry_price;
+        $event->event_image = $request->image ?? $event->image;
         $event->save();
 
         return redirect()->route('user.events')->with('message', 'Evento alterado com sucesso!');
