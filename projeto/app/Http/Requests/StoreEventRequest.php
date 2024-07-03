@@ -28,7 +28,7 @@ class StoreEventRequest extends FormRequest
             'end_date' => ['required', 'date', 'after_or_equal:init_date'],
             'max_participants' => ['required', 'numeric', 'min:1'],
             'entry_price' => ['required', 'numeric', 'min:0'],
-            'image' => ['required', 'mimes:jpg,png,jpeg'],
+            'image' => ['mimes:jpg,png,jpeg'],
         ];
     }
 
@@ -40,7 +40,6 @@ class StoreEventRequest extends FormRequest
             'end_date.required' => 'O evento não pode ser criado sem uma data final.',
             'max_participants' => 'A quantidade máxima de participantes deve ser informada.',
             'entry_price.required' => 'É necessário informar o preço de entrada do evento.',
-            'image.required' => 'A imagem principal do evento é obrigatória.',
             'title.required' => ':attribute é obrigatório.',
 
             'title.min' => 'O título deve possuir no mínimo 3 caracteres.',

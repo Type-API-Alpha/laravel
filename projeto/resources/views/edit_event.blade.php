@@ -49,7 +49,7 @@
             <div class="mb-1 w-100">
                 <label for="input-image" class="form-label">Imagem principal do evento </label>
                 <div id="container-input-image">
-                    <input id="input-image" type="file" name="image" class="form-control  rounded-pill">
+                    <input id="input-image" type="file" name="image" class="form-control  rounded-pill" value="{{ $event->event_image }}">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary w-50 mt-4">Salvar</button>

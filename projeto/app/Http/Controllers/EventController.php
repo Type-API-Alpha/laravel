@@ -8,8 +8,8 @@ use App\Models\EventPhoto;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserEvent;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 
 class EventController extends Controller {
     public function index() {
@@ -50,7 +50,7 @@ class EventController extends Controller {
 
         $isParticipating = UserEvent::where(['user_id' => Auth::user()->id, 'event_id' => $event->id])->exists();
         $eventPhotos = $event->photos()->paginate(4);
-    
+
         return view('event_details', compact('event', 'soldOff', 'eventPhotos', 'isParticipating'));
     }
 
@@ -66,14 +66,17 @@ class EventController extends Controller {
         return view('edit_event', compact('event'));
     }
 
-    public function update(Request $request, Event $event) {
+    public function update(StoreEventRequest $request, Event $event): RedirectResponse {
+
+        $imagePath = $request->file('image')->store('images', 'public');
+
         $event->title = $request->title;
         $event->description = $request->description;
         $event->init_date = $request->init_date;
         $event->end_date = $request->end_date;
         $event->max_participants = $request->max_participants;
         $event->entry_price = $request->entry_price;
-        $event->event_image = $request->image ?? $event->image;
+        $event->event_image = $imagePath ?? null;
         $event->save();
 
         return redirect()->route('user.events')->with('message', 'Evento alterado com sucesso!');
