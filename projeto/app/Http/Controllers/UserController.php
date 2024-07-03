@@ -14,7 +14,7 @@ class UserController extends Controller {
         return view('register');
     }
 
-    public function store(StoreUserRequest $request): RedirectResponse{
+    public function store(StoreUserRequest $request): RedirectResponse {
         User::create([
             'name' => $request ->name,
             'email' => $request ->email,

@@ -6,7 +6,8 @@ use App\Models\Event;
 use App\Models\EventPhoto;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\userEvent;
+use App\Models\UserEvent;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class EventController extends Controller {
@@ -45,8 +46,10 @@ class EventController extends Controller {
             $soldOff = true;
         }
 
+        $isParticipating = UserEvent::where(['user_id' => Auth::user()->id, 'event_id' => $event->id])->exists();
         $eventPhotos = $event->photos()->paginate(4);
-        return view('event_details', compact('event', 'soldOff', 'eventPhotos'));
+    
+        return view('event_details', compact('event', 'soldOff', 'eventPhotos', 'isParticipating'));
     }
 
     public function showEvents() {

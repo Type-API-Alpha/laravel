@@ -2,22 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthLoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller {
     
-    public function auth(Request $request): RedirectResponse {
-        $credentials = $request-> validate([
-            'email' => ['required', 'email', 'string'],
-            'password' => ['required', 'min:8'],
-        ], [
-            'email.email' => 'Email inválido',
-            'email.required' => 'Email é obrigatório.',
-            'password.required' => 'Senha é obrigatório.',
-            'password.min' => 'Senha tem que possuir no mínimo 8 caracteres.',
-        ]);
+    public function auth(AuthLoginRequest $request): RedirectResponse {
+
+        $credentials = [
+            'email' => $request ->email,
+            'password' => $request ->password
+        ];
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();

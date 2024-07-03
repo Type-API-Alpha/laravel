@@ -26,7 +26,11 @@
                     $context = request()->get('context');
                 @endphp
 
-                @if ($context === 'public')
+                @if ($context === 'participant' || $isParticipating)
+                    <div class="d-flex flex-column justify-content-end mt-5 gap-3 align-items-center">
+                        <a class="3" href="{{ $context === 'participant' ? route('user.events') : route('event.index')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Voltar</button></a>
+                    </div>
+                @elseif ($context === 'public')
                     <div class="d-flex flex-column justify-content-end mt-5 gap-3">
                         @if ($soldOff)
                             <span id="span-soldOff" class="text-danger fw-bold mt-5" style="width: max-content">Ingresso esgotado</span>
@@ -39,10 +43,6 @@
                             </div>
                         @endif
                         <a class="3" href="{{ route('event.index') }}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Home</button></a>
-                    </div>
-                @elseif ($context === 'participant')
-                    <div class="d-flex flex-column justify-content-end mt-5 gap-3 align-items-center">
-                        <a class="3" href="{{ route('user.events') }}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Voltar</button></a>
                     </div>
                 @elseif ($context === 'owner')
                     <div class="d-flex flex-column justify-content-end mt-5 gap-3">
@@ -91,15 +91,10 @@
     @if (session('success'))
         <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Sucesso</h5>
-                    </div>
-                    <div class="modal-body">
-                        Participação confirmada!!
-                    </div>
-                    <div class="modal-footer">
-                        <a href="{{ route('event.index') }}"><button type="button" class="btn btn-primary">Home</button></a>
+                <div class="modal-content" style="max-width: 25rem">
+                    <div class="modal-body text-center alert alert-primary mb-0 p-4">
+                        <h5 class="modal-title mb-2">Participação confirmada com sucesso.</h5>
+                        <a href="{{ route('event.index') }}"><button type="button" class="w-50 btn btn-primary pe-2 ps-2">Home</button></a>
                     </div>
                 </div>
             </div>
