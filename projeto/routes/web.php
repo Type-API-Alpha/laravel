@@ -27,3 +27,5 @@ Route::get('/home', [ EventController::class, 'index' ]) ->name('event.index');
 Route::get('/event/{event}', [ EventController::class, 'show' ]) ->name('event.detail');
 Route::post('join/event/{event}', [ UserEventController::class, 'store' ]) ->name('event.join')->middleware('auth');
 Route::post('/event/{id}/photo', [ EventController::class, 'addGaleryPhoto' ]) ->name('event.addPhoto');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
