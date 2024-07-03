@@ -5,6 +5,12 @@
         <ul class="d-flex gap-2" style="list-style: none; margin: 0">
             <li id="li-event"><a  class="shadow-sm btn btn-info fw-bold text-white" href="{{ route('user.events') }}">Meus Eventos</a></li>
             <li id="li-home"><a  class="shadow-sm btn btn-info fw-bold text-white" href="{{ route('event.index') }}">Página Inicial</a></li>
+            <li id="li-logout">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button class="shadow-sm btn btn-danger fw-bold text-white" type="submit">Sair</button>
+                </form>
+            </li>
         </ul>
     </nav>
     @endauth
