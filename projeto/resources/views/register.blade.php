@@ -2,7 +2,7 @@
 @section('title', 'Página de Cadastro')
 
 @section('content')
-
+@include('components.header')
     <section class="vh-100 d-flex justify-content-center align-items-center flex-column" id="login-section">
         <form class="position-relative w-100 p-5 d-flex flex-column gap-3 justify-content-center align-items-center shadow rounded"  style="max-width: 450px; max-height: fit-content" method="POST" action="{{ route('register') }}">
             @csrf
