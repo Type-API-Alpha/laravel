@@ -8,7 +8,7 @@
             <li id="li-logout">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button class="shadow-sm btn btn-danger fw-bold text-white" type="submit">Sair</button>
+                    <button class="shadow-sm btn btn-outline-warning" type="submit">Sair</button>
                 </form>
             </li>
         </ul>

@@ -2,14 +2,14 @@
 @extends('layout')
 @section('content')
     <section class="vh-100 d-flex justify-content-center align-items-center" id="login-section">
-        <form class="position-relative w-100 h-75 p-5 d-flex flex-column gap-3 justify-content-center align-items-center shadow rounded"  style="max-width: 450px; max-height: 400px" action="{{ route('login.auth') }}" method="POST">
+        <form class="position-relative w-100 h-75 p-5 d-flex flex-column gap-3 justify-content-center shadow rounded"  style="max-width: 450px; max-height: 400px" action="{{ route('login.auth') }}" method="POST">
             @csrf
             @method('POST')
-            <h3 class="fw-medium .text-body">login</h3>
+            <h3 class="fw-medium text-body text-center">login</h3>
             <div class="mb-1 w-100">
                 <label for="input-email" class="form-label">Email:</label>
                 <div id="container-input-email">
-                    <input id="input-email" type="email" placeholder="example@gmail.com" name="email" class="form-control rounded-pill">
+                    <input value="{{ old('email') }}" id="input-email" type="email" placeholder="example@gmail.com" name="email" class="form-control rounded-pill">
                 </div>
                 @error('email')
                     <div class="alert position-absolute top-100 alert-danger" role="alert">
@@ -28,7 +28,8 @@
                     </div>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary w-50 mt-4">Login</button>
+            <a href="{{ route('register') }}" style="text-decoration: none; color: black"><span>registre-se</span></a>
+            <button type="submit" class="btn btn-primary w-50 m-auto">Login</button>
 
             @if ($errors ->has('invalidCredentials'))
                 <div class="alert position-absolute top-100 alert-danger" role="alert">

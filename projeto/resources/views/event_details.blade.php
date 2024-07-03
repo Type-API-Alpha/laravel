@@ -1,14 +1,16 @@
 @extends('layout')
 
 @section('content')
-    <section id="event-detail" class="d-flex justify-content-center align-items-center" style="height: 100vh">
-        <div class="h-80 d-flex shadow w-75 position-relative row bg-light-subtle rounded" style="height: 700px">
-            <div  class="col-lg-6 p-0" style="max-height: 100%">
-                <img class="rounded-start w-100 h-100" src="{{ asset('storage/' . $event->event_image) }}">
-            </div>
-            <div id="container-event-infos" class="p-4 d-flex flex-column justify-content-center gap-2 col-lg-6">
+    <section id="event-detail" class="d-flex justify-content-center align-items-center pt-5 p-4" style="min-height: 100vh">
+        <div class="h-80 d-flex shadow w-75 position-relative row bg-light-subtle rounded">
+            @if ($event->event_image)
+                <div  class="col-lg-6 p-0" style="max-height: 100vh">
+                        <img class="rounded-start w-100 h-100" src="{{ asset('storage/' . $event->event_image) }}">                 
+                </div>
+            @endif
+            <div id="container-event-infos" class="p-4 d-flex flex-column justify-content-center gap-2 {{ $hasEventMainImage ? 'col-lg-6' : 'col-lg-12 text-center align-items-center'}}">
                 <h2 class="w-75">{{ $event->title }}</h2>
-                <p class="w-75 fs-5">{{ $event->description }}</p>
+                <p class=" fs-5 pt-4">{{ $event->description }}</p>
                 <div class="position-absolute end-0 top-0 p-3">
                     @php
                         $explodedInitDate = explode('-', $event->init_date);
@@ -27,7 +29,8 @@
                 @endphp
 
                 @if ($context === 'participant' || $isParticipating)
-                    <div class="d-flex flex-column justify-content-end mt-5 gap-3 align-items-center">
+                    <div class="d-flex flex-column justify-content-end gap-3 align-items-center">
+                        <span class="text-success fw-bold">Você já faz parte deste evento <img src="{{ ('/assets/icons/info-icon-2.svg') }}"/></span>
                         <a class="3" href="{{ $context === 'participant' ? route('user.events') : route('event.index')}}"><button type="button" class="btn btn-outline-secondary" style="width: 20rem">Voltar</button></a>
                     </div>
                 @elseif ($context === 'public')

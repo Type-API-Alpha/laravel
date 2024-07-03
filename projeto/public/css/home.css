@@ -23,9 +23,15 @@
 
 #image-home {
     max-width: 25rem;
-    position: relative;
-    left: calc(100% - 25rem);
-    filter: drop-shadow(0px 4px 4px rgb(131, 131, 131));
+    filter: drop-shadow(10px 10px 4px rgb(70, 70, 70));
+    transform: rotate(25deg);
+
+}
+
+#image-home-first {
+    max-width: 25rem;
+    filter: drop-shadow(-10px 10px 4px rgb(70, 70, 70));
+    transform: rotate(-25deg);
 }
 
 #title-card-section {

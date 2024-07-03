@@ -14,7 +14,7 @@
         </a>
         <div class="row">
             @if($myEvents->isEmpty())
-                <p>Você não possui nenhum evento.</p>
+                <p class="text-center fw-bold fs-4">Você não possui nenhum evento.</p>
             @else
                 @foreach ($myEvents as $event)
                     <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
@@ -35,7 +35,7 @@
     </div>
 
     <div class="container">
-        <h2 class="text-center">Eventos que faço parte</h2>
+        <h2 class="text-center mb-5">Eventos que faço parte</h2>
         <div class="row">
             @if($eventsIn->isEmpty())
                 <p>Você não faz parte de nenhum evento.</p>

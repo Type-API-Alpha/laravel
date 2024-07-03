@@ -1,19 +1,22 @@
 @extends('layout')
 @section('content')
-<section id="home">
+<section id="home" class="pt-5 mt-5" style="min-height: 100vh">
         @include('components.header')
         @guest
-            <div class="container mt-5 pt-5 border-bottom pb-5 mb-5" >
-                <div class="row pt-5">
+            <div class="container mt-3 pt-3 border-bottom border-dark-subtle pb-5 mb-5 text-center" >
+                <div class="row pt-5 pb-5">
+                    <div class="col-md-3 col-sm-12 position-relative">
+                        <img id="image-home-first" src="{{ asset('assets/icons/Halloween tickets-bro.svg') }}" alt="">
+                    </div>
                     <div id="container-content" class="col-md-6 col-sm-12 d-flex flex-column justify-content-center text-body-emphasis">
-                        <h2 class="mb-4">Sua Plataforma Completa para <span class="text-info">Descobrir, Cadastrar e Participar</span> de Eventos Incríveis</h2>
+                        <h2 class="mb-4 fw-bolder fs-1">Sua Plataforma Completa para <span class="text-info">Descobrir, Cadastrar e Participar</span> de Eventos Incríveis</h2>
                         <p class="fs-5 lh-sm">Junte-se à nossa vibrante comunidade! Descubra eventos emocionantes,
                         os seus próprios e participe de experiências únicas que vão transformar sua rotina.
                         Seja parte de uma <span style="color: #f56d1e">rede que conecta pessoas e eventos em um só lugar</span>.</p>
-                        <a href="{{ route('register') }}"><button class="shadow btn mt-4 w-50 fw-bold fs-5" style="background-color: #f56d1e">cadastrar</button></a>
+                        <a href="{{ route('register') }}"><button class="shadow btn mt-4 w-50 fw-bold fs-5" style="background-color: #f56d1e">Junte-se a nós</button></a>
                     </div>
-                    <div class="col-md-6 col-sm-12 position-relative">
-                        <img id="image-home" src="{{ asset('assets/icons/main-image.svg') }}" alt="">
+                    <div class="col-md-3 col-sm-12 position-relative">
+                        <img id="image-home" src="{{ asset('assets/icons/Halloween tickets-pana.svg') }}" alt="">
                     </div>
                 </div>
             </div>
@@ -52,8 +55,8 @@
                 @endforeach
             </div>
         </div>
-    </section>
         <div class="pt-5 pb-5" style="background-color: rgb(245, 245, 245);">
             {{ $events->links('custom.paginate') }}
         </div>
+    </section>
 @endsection

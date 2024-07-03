@@ -8,6 +8,7 @@ use App\Models\EventPhoto;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserEvent;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -42,22 +43,29 @@ class EventController extends Controller {
     public function show(Event $event) {
         $numParticipants = $event->participants()->count();
         $maxParticipants = $event->max_participants;
-        $soldOff = false;
 
+        $soldOff = false;
         if ($numParticipants == $maxParticipants) {
             $soldOff = true;
         }
 
-        $isParticipating = UserEvent::where(['user_id' => Auth::user()->id, 'event_id' => $event->id])->exists();
+        $isParticipating = null;
+        if (Auth::check()) {
+            $isParticipating = UserEvent::where(['user_id' => Auth::user()->id, 'event_id' => $event->id])->exists();
+        }
+
+        $hasEventMainImage = $event->event_image ?? false;
         $eventPhotos = $event->photos()->paginate(4);
     
-        return view('event_details', compact('event', 'soldOff', 'eventPhotos', 'isParticipating'));
+        return view('event_details', compact('event', 'soldOff', 'eventPhotos', 'isParticipating', 'hasEventMainImage'));
     }
 
     public function showEvents() {
-        $sessionId = session('loginId');
-        $myEvents = Event::where('user_id', $sessionId)->paginate(3);
-        $user = User::with('events')->findOrFail($sessionId);
+
+        $userID = Auth::user()->id;
+
+        $myEvents = Event::where('user_id', $userID)->paginate(3);
+        $user = User::with('events')->findOrFail($userID );
         $eventsIn = $user->events()->paginate(3, ['*'], 'eventsInPage');
         return view('event_user', compact('myEvents', 'eventsIn'));
     }
@@ -91,9 +99,7 @@ class EventController extends Controller {
     }
 
     public function leaveEvent(Request $request, Event $event) {
-        $userId = session('loginId');
-        $eventId = $event->id;
-        userEvent::where('user_id', $userId)->where('event_id', $eventId)->delete();
+        userEvent::where(['user_id' => Auth::user()->id, 'event_id' => $event->id])->delete();
 
         return redirect()->route('user.events')->with('leave_success', 'Você saiu do evento com sucesso!');
     }

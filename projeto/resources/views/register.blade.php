@@ -10,13 +10,13 @@
             <div class="mb-1 w-100">
                 <label for="input-name" class="form-label">Nome</label>
                 <div id="container-input-name">
-                    <input id="input-name" type="text" name="name" class="form-control rounded-pill" required>
+                    <input id="input-name" type="text" name="name" class="form-control rounded-pill" required value="{{ old('name') }}">
                 </div>
             </div>
             <div class="mb-1 w-100">
                 <label for="input-email" class="form-label">Email</label>
                 <div id="container">
-                    <input id="input-email" type="email" name="email" class="form-control rounded-pill" required>
+                    <input id="input-email" type="email" name="email" class="form-control rounded-pill" required value="{{ old('email') }}">
                 </div>
             </div>
             <div class="mb-1 w-100">
